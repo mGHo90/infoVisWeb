@@ -162,10 +162,12 @@ app.get('/tool', function( req, res ) {
 app.post('/tool', function( req, res ) {
 
 	var dataFile   = req.body.data_file_name;
-	var backPath = "http://35.163.48.45:8888/laskaback/";
-	var actPath = "http://35.163.48.45:8888/laskaactivations/";
-  
-  console.log('hs dataFileName: '+dataFile);
+	var backPath = req.body.back_link;
+	var actPath = req.body.act_link;
+
+	console.log('hs dataFileName: '+dataFile);
+	console.log('hs backPath: '+backPath);
+	console.log('hs actPath: '+actPath);
 
 	res.render('tool', {"dataFileName":dataFile, "backPath":backPath, "actPath":actPath});
 });
