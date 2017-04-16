@@ -136,7 +136,7 @@
     var path = "http://35.163.48.45:8888/laskaactivations/";
 
     console.log("{{{dataFileName}}}")
-    d3.json("{{{dataFileName}}}", function(error, data) {
+    d3.json("tool/data/{{{dataFileName}}}", function(error, data) {
         if (error) {  //If error is not null, something went wrong.
             console.log(error);  //Log the error.
         }

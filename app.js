@@ -29,10 +29,19 @@ app.engine('handlebars', handlebars()); app.set('view engine', 'handlebars');
 
 //MULTAR
 var multer = require('multer');
-var upload = multer({ dest: 'transfers/' });
+//var upload = multer({ dest: 'transfers/' });
 
 
+var storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, 'transfers/')
+    },
+    filename: function (req, file, cb) {
+        cb(null, file.originalname)
+  }
+})
 
+var upload = multer({ storage: storage })
 
 
 /**********************************************************************
@@ -132,23 +141,6 @@ app.post('/', upload.single('description_file'), function( req, res ) {
         var title      = "HsTitleHere";
         var file   = req.file;
 
-        var newHs = new Hs({
-          title : title,
-          file: file
-        });
-
-      
-        newHs.save(function(err, hs){
-          if(err){
-            console.log(err);
-            throw err;
-          } 
-          else{
-            console.log('\n\n\ncreated hs:\n'+hs+'\n\n');
-          }
-
-        });
-
         res.send('REceived POST');
 });
 
@@ -171,18 +163,37 @@ app.post('/tool', function( req, res ) {
 
 
 
-app.get('/data.json', function(req, res){
 
-  var file = 'transfers/data.json';
+app.get('/tool/data/:fileName', function(req, res){
 
-  var filename = 'data.json';
-  var mimetype = mime.lookup(file);
-  console.log('filename: ' + filename + '\nmimetype: '+ mimetype)
-  res.setHeader('Content-disposition', 'inline; filename=' + filename);
-  res.setHeader('Content-type', mimetype);
+  var filename = req.params.fileName;
+  var file = 'transfers/'+filename;
 
-  var filestream = fs.createReadStream(file);
-  filestream.pipe(res);
+  
+  var stats;
+  try {
+    stats = fs.lstatSync(file); //Look for the file name if its not there, do cath. 
+
+    var mimetype = mime.lookup(file);
+    console.log('filename: ' + filename + '\nmimetype: '+ mimetype)
+    res.setHeader('Content-disposition', 'inline; filename=' + filename);
+    res.setHeader('Content-type', mimetype);
+
+    var filestream = fs.createReadStream(file);
+    filestream.pipe(res);
+  } catch(e) {
+    //send a 404 error
+    console.log('hs could not find the requested data file')
+    res.writeHead(404, {'Content-type': 'text/plain'});
+    res.write('404 not found');
+
+    //end the connection to client
+    res.end();
+
+    //end server
+    return;
+  }
+
 });
 
 
