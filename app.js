@@ -131,8 +131,6 @@ app.get('/', function( req, res ) {
 		console.log(items);
 
 		var uploadedFiles = [];
-		uploadedFiles.push({"name":"kosFile"})
- 
 		for (var i=0; i<items.length; i++) {
 			console.log(items[i]);
 			uploadedFiles.push({"name":items[i]})
