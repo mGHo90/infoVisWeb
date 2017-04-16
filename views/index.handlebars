@@ -1,12 +1,12 @@
-<h2>Create An Account</h2>
+<h1>Mahdi's InfoVis Tool</h1>
+
+
+<hr>
+<h3>Upload your ConvNet here:</h3>
 <form id="regForm" method="post" enctype="multipart/form-data"  action="/">
-	<div>
-        	<label>First Name: </label>
-        	<input type="text" name="first_name" value="Hooman">
-	</div>
 
 	<div>
-    		<label>Job Description File: </label>
+    		<label>Data File(.json): </label>
     		<input type="file" name="description_file">
   	</div>
 
@@ -17,36 +17,23 @@
 </form>
 
 
-<form id="downloadForm2" method="get" enctype="multipart/form-data"  action="/download">
-
-    <div>
-            <input type="submit" value="download">
-    </div>
-
-</form>
-
 <form id="downloadForm2" method="get" enctype="multipart/form-data"  action="/data.json">
 
     <div>
-            <input type="submit" value="data.json">
+            <input type="submit" value="view data.json">
     </div>
 
 </form>
 
 
-<form id="downloadForm2" method="post" action="/tool">
-
+<hr>
+<h3>Or jump to lunching the tool:</h3>
+<form id="downloadForm2" method="get" enctype="multipart/form-data"  action="/tool">
     <div>
-            <label>File Name: </label>
-            <input type="text" name="data_file_name" value="data.json">
+            <input type="submit" value="TOOL">
     </div>
-
-
-    <div>
-            <input type="submit" value="LUNCH">
-    </div>
-
 </form>
 
 
-</form>
+
+
