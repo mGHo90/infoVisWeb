@@ -33,11 +33,11 @@ var multer = require('multer');
 
 
 var storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-        cb(null, 'transfers/')
-    },
-    filename: function (req, file, cb) {
-        cb(null, file.originalname)
+	destination: function (req, file, cb) {
+		cb(null, 'transfers/')
+	},
+	filename: function (req, file, cb) {
+		cb(null, file.originalname)
   }
 })
 
@@ -96,7 +96,7 @@ app.use(function (req, res, next) {
 //hs schema
 var HsSchema = mongoose.Schema({
   title: {
-    type: String
+	type: String
   },
   file: {
   }
@@ -104,8 +104,8 @@ var HsSchema = mongoose.Schema({
 
 
 HsSchema.plugin(filePlugin, {
-    upload_to: make_upload_to_model(transfers, 'photos'),
-    relative_to: transfers_base
+	upload_to: make_upload_to_model(transfers, 'photos'),
+	relative_to: transfers_base
 });
 var Hs = db.model("Hs", HsSchema);
 //var Job = module.exports = mongoose.model('Job', jobSchema);
@@ -125,7 +125,22 @@ var Hs = db.model("Hs", HsSchema);
 
 // Route that incorporates flash messages from either req.flash(type) or res.locals.flash
 app.get('/', function( req, res ) {
-    res.render('index');
+	var path = '/home/hooman/infoVisWeb/transfers';
+ 
+	fs.readdir(path, function(err, items) {
+		console.log(items);
+
+		var uploadedFiles = [];
+		uploadedFiles.push({"name":"kosFile"})
+ 
+		for (var i=0; i<items.length; i++) {
+			console.log(items[i]);
+			uploadedFiles.push({"name":items[i]})
+		}
+
+		res.render('index', {"uploadedFiles": uploadedFiles});
+	});
+	
 });
 
 
@@ -133,22 +148,18 @@ app.get('/', function( req, res ) {
 
 
 app.post('/', upload.single('description_file'), function( req, res ) {
-        
-        console.log('Uploaded File:\n');
-        console.log(req.file);
-        console.log('\n\n\n');
 
-        var title      = "HsTitleHere";
-        var file   = req.file;
-
-        res.send('REceived POST');
+	console.log('uploaded file:\n');
+	console.log(req.file);
+	
+	res.redirect('/');
 });
 
 
 
 
 app.get('/tool', function( req, res ) {
-    res.render('lunch');
+	res.render('lunch');
 });
 app.post('/tool', function( req, res ) {
   var dataFile   = req.body.data_file_name;
@@ -156,7 +167,7 @@ app.post('/tool', function( req, res ) {
 
 
 
-    res.render('tool', {"dataFileName":dataFile});
+	res.render('tool', {"dataFileName":dataFile});
 });
 
 
@@ -172,26 +183,26 @@ app.get('/tool/data/:fileName', function(req, res){
   
   var stats;
   try {
-    stats = fs.lstatSync(file); //Look for the file name if its not there, do cath. 
+	stats = fs.lstatSync(file); //Look for the file name if its not there, do cath. 
 
-    var mimetype = mime.lookup(file);
-    console.log('filename: ' + filename + '\nmimetype: '+ mimetype)
-    res.setHeader('Content-disposition', 'inline; filename=' + filename);
-    res.setHeader('Content-type', mimetype);
+	var mimetype = mime.lookup(file);
+	console.log('filename: ' + filename + '\nmimetype: '+ mimetype)
+	res.setHeader('Content-disposition', 'inline; filename=' + filename);
+	res.setHeader('Content-type', mimetype);
 
-    var filestream = fs.createReadStream(file);
-    filestream.pipe(res);
+	var filestream = fs.createReadStream(file);
+	filestream.pipe(res);
   } catch(e) {
-    //send a 404 error
-    console.log('hs could not find the requested data file')
-    res.writeHead(404, {'Content-type': 'text/plain'});
-    res.write('404 not found');
+	//send a 404 error
+	console.log('hs could not find the requested data file')
+	res.writeHead(404, {'Content-type': 'text/plain'});
+	res.write('404 not found');
 
-    //end the connection to client
-    res.end();
+	//end the connection to client
+	res.end();
 
-    //end server
-    return;
+	//end server
+	return;
   }
 
 });

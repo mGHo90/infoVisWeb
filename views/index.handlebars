@@ -17,6 +17,12 @@
 </form>
 
 
+<h5>Previously Uploaded Files:</h5>
+{{#each uploadedFiles}}
+    <li>{{name}}</li>
+{{/each}}
+
+
 <form id="downloadForm2" method="get" enctype="multipart/form-data"  action="/data.json">
 
     <div>
