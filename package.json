@@ -9,6 +9,7 @@
     "async": "*",
     "bcrypt": "*",
     "body-parser": "~1.15.2",
+    "bootstrap": "^3.3.7",
     "connect-flash": "*",
     "cookie-parser": "~1.4.3",
     "debug": "~2.2.0",
