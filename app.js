@@ -156,8 +156,13 @@ app.post('/', upload.single('description_file'), function( req, res ) {
 
 
 
-app.get('/tool', function( req, res ) {
-    res.render('tool', {"dataFileName":"data.json"});
+app.post('/tool', function( req, res ) {
+  var dataFile   = req.body.data_file_name;
+  console.log('hs dataFileName: '+dataFile);
+
+
+
+    res.render('tool', {"dataFileName":dataFile});
 });
 
 

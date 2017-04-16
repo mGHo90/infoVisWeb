@@ -34,10 +34,16 @@
 </form>
 
 
-<form id="downloadForm2" method="get" enctype="multipart/form-data"  action="/tool">
+<form id="downloadForm2" method="post" action="/tool">
 
     <div>
-            <input type="submit" value="tool">
+            <label>File Name: </label>
+            <input type="text" name="data_file_name" value="data.json">
+    </div>
+
+
+    <div>
+            <input type="submit" value="LUNCH">
     </div>
 
 </form>
