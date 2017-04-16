@@ -102,15 +102,25 @@ var Hs = db.model("Hs", HsSchema);
 //var Job = module.exports = mongoose.model('Job', jobSchema);
 
 
+
+
+
+
+
+
+
+
+
+
+
+
 // Route that incorporates flash messages from either req.flash(type) or res.locals.flash
 app.get('/', function( req, res ) {
     res.render('index');
 });
 
 
-app.get('/tool', function( req, res ) {
-    res.render('tool');
-});
+
 
 
 app.post('/', upload.single('description_file'), function( req, res ) {
@@ -140,6 +150,14 @@ app.post('/', upload.single('description_file'), function( req, res ) {
         });
 
         res.send('REceived POST');
+});
+
+
+
+
+
+app.get('/tool', function( req, res ) {
+    res.render('tool', {"dataFileName":"data.json"});
 });
 
 
