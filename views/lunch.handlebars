@@ -1,28 +1,88 @@
-<h1>Lunch The Tool</h1>
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+		<meta name="description" content="">
+		<meta name="author" content="">
 
-<form id="downloadForm2" method="post" action="/tool">
+		<title>Mahdi's CNN Vis Tool</title>
 
-    <div>
-            <label>Json File Name: </label>
-            <input type="text" name="data_file_name" value="data.json">
-    </div>
+		<!-- Bootstrap core CSS -->
+		<link href="stylesheets/bootstrap.min.css" rel="stylesheet">
 
-    <div>
-            <label>Link To BackPrp Images: </label>
-            <input type="text" name="back_link" value="http://35.163.48.45:8888/laskaback/">
-    </div>
-
-    <div>
-            <label>Link To Activation Images: </label>
-            <input type="text" name="act_link" value="http://35.163.48.45:8888/laskaactivations/">
-    </div>
-
-
-    <div>
-            <input type="submit" value="LUNCH">
-    </div>
-
-</form>
+		<!-- Custom styles for this template -->
+		<link href="stylesheets/cover.css" rel="stylesheet">
+ 	</head>
 
 
-</form>
+	<body>
+
+		<div class="site-wrapper">
+			<div class="site-wrapper-inner">
+				<div class="cover-container">
+
+					<div class="masthead clearfix">
+						<div class="inner">
+							<h3 class="masthead-brand">Cover</h3>
+							<nav>
+								<ul class="nav masthead-nav">
+									<li class="active"><a href="#">Home</a></li>
+									<li><a href="#">Documentation</a></li>
+									<li><a href="#">Contact</a></li>
+								</ul>
+							</nav>
+						</div>
+					  </div>
+
+					<div class="inner cover">
+						<h1>Lunch The Tool</h1>
+
+						<form id="downloadForm2" method="post" action="/tool">
+							<p><br></p>	
+							<label>Json File Name: </label>
+							<font color='black'><input type="text" name="data_file_name" value="data.json"></font>
+
+							
+							 <p><br></p>
+							 <label>Link To BackPrp Images: </label>
+							 <font color='black'><input type="text" name="back_link" value="http://35.163.48.45:8888/laskaback/"></font>
+
+							 <p><br></p>
+							 <label>Link To Activation Images: </label>
+							 <font color='black'><input type="text" name="act_link" value="http://35.163.48.45:8888/laskaactivations/"></font>
+
+							 <p><br></p>
+							 <input type="submit" value="LUNCH" class="btn btn-lg btn-default">
+
+						</form>
+                                        </div>
+
+
+
+					<div class="mastfoot">
+						<div class="inner">
+							<p  align="middle">&copy; Copyright Mahdi Ghodsi. 2017 All Rights Reserved</p>
+						</div>
+				  	</div>
+
+				</div>
+
+			</div>
+
+		</div>
+
+
+
+
+		<!-- Bootstrap core JavaScript
+		================================================== -->
+		<!-- Placed at the end of the document so the pages load faster -->
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+		<script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
+		<script src="javascripts/bootstrap.min.js"></script>
+
+	</body>
+</html>
