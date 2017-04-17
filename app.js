@@ -1,3 +1,6 @@
+/*******************************************************************
+****************Middle Ware Declarations****************************
+*******************************************************************/
 var fs = require('fs');
 var express = require('express');
 var path = require('path');
@@ -16,21 +19,32 @@ var mongoose = require('mongoose');
 var db = mongoose.connection;
 mongoose.connect('mongodb://35.163.48.45/sandbox');
 mongoose.Promise = global.Promise
-async = require('async'); 
+async = require('async');
+/****************END (Middle Ware Declarations)*********************/ 
 
 
 
+//Instantiating express
 var app = express();
 
+
+/**********************************************************************
+************************VIEW ENGINE CONFIGS****************************
+***********************************************************************/
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 //app.set('view engine', 'jade');
 app.engine('handlebars', handlebars()); app.set('view engine', 'handlebars');
+/**********************END (VIEW ENGINE CONFIGS)************************/
 
-//MULTAR
+
+
+
+/**********************************************************************
+**********************Multer FILE UPLOAD CONFIGS***********************
+***********************************************************************/
 var multer = require('multer');
 //var upload = multer({ dest: 'transfers/' });
-
 
 var storage = multer.diskStorage({
 	destination: function (req, file, cb) {
@@ -42,10 +56,11 @@ var storage = multer.diskStorage({
 })
 
 var upload = multer({ storage: storage })
+/**********************END (Multer FILE UPLOAD CONFIGS)*****************/
 
 
 /**********************************************************************
-****************************MOGO FILE UPLOAD STUFF*********************
+**************************MOGO FILE UPLOAD CONFIGS*********************
 ***********************************************************************/
 var filePluginLib = require('mongoose-file');
 var filePlugin = filePluginLib.filePlugin;
@@ -55,19 +70,25 @@ var make_upload_to_model = filePluginLib.make_upload_to_model;
 var transfers_base = path.join(__dirname, "transfers");
 var transfers = path.join(transfers_base, "u");
 
+/**********************END (MOGO FILE UPLOAD CONFIGS)********************/
+
+
+
+
+
+
 /**********************************************************************
-**********************END OF MOGO FILE UPLOAD STUFF********************
+**********************Logger And Body Parser Configs*******************
 ***********************************************************************/
-
-
-
-
-
-
-
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+
+
+
+/**********************************************************************
+******************Session and cookie parser Configs********************
+***********************************************************************/
 app.use(session({
   secret: 'secret',
   saveUninitialized: true,
@@ -77,12 +98,17 @@ app.use(session({
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-//flash stuff
+
+
+/**********************************************************************
+******************Flash and Express Messages Configs*******************
+***********************************************************************/
 app.use(flash());
 app.use(function (req, res, next) {
   res.locals.messages = require('express-messages')(req, res);
   next();
 });
+/***********************END(of above)*********************************/
 
 
 
@@ -91,8 +117,9 @@ app.use(function (req, res, next) {
 
 
 
-
-
+/**********************************************************************
+*************************A MongoDB Schema******************************
+***********************************************************************/
 //hs schema
 var HsSchema = mongoose.Schema({
   title: {
@@ -110,6 +137,7 @@ HsSchema.plugin(filePlugin, {
 var Hs = db.model("Hs", HsSchema);
 //var Job = module.exports = mongoose.model('Job', jobSchema);
 
+/***********************END(MongoDB Schema)*********************************/
 
 
 
@@ -123,7 +151,10 @@ var Hs = db.model("Hs", HsSchema);
 
 
 
-// Route that incorporates flash messages from either req.flash(type) or res.locals.flash
+/**********************************************************************
+****************************INDEX ROUTE********************************
+***********************************************************************/
+// get requests
 app.get('/', function( req, res ) {
 	var path = '/home/hooman/infoVisWeb/transfers';
  
@@ -142,9 +173,7 @@ app.get('/', function( req, res ) {
 });
 
 
-
-
-
+// post requests
 app.post('/', upload.single('description_file'), function( req, res ) {
 
 	console.log('uploaded file:\n');
@@ -153,12 +182,20 @@ app.post('/', upload.single('description_file'), function( req, res ) {
 	res.redirect('/');
 });
 
+/*************************END(INDEX ROUTE)*********************************/
 
 
 
+/**********************************************************************
+*****************************TOOL ROUTE********************************
+***********************************************************************/
+// get requests
 app.get('/tool', function( req, res ) {
 	res.render('lunch');
 });
+
+
+// post requests
 app.post('/tool', function( req, res ) {
 
 	var dataFile   = req.body.data_file_name;
@@ -172,11 +209,14 @@ app.post('/tool', function( req, res ) {
 	res.render('tool', {"dataFileName":dataFile, "backPath":backPath, "actPath":actPath});
 });
 
+/*************************END(TOOL ROUTE)*********************************/
 
 
 
 
-
+/**********************************************************************
+***************************TOOL DATA ROUTE*****************************
+***********************************************************************/
 app.get('/tool/data/:fileName', function(req, res){
 
   var filename = req.params.fileName;
@@ -208,12 +248,12 @@ app.get('/tool/data/:fileName', function(req, res){
   }
 
 });
+/***********************END(TOOL DATA ROUTE)*********************************/
 
 
 
 
 
-
-
+//Export the app variable so that its available outside this file
 module.exports = app;
 

@@ -43,7 +43,9 @@
 
 						<h5>Previously Uploaded Files:</h5>
 						{{#each uploadedFiles}}
-							<li>{{name}}</li>
+							<li>
+      							<a href="/tool/data/{{name}}"><strong>{{name}}</strong></a>
+    						</li>
 						{{/each}}
 						<hr>
 						
