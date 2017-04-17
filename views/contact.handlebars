@@ -29,9 +29,9 @@
 						<nav>
 							<ul class="nav masthead-nav">
 								
-								<li class="active"><a href="/">Home</a></li>
+								<li><a href="/">Home</a></li>
 								<li><a href="/documentation">Documentation</a></li>
-								<li><a href="/contact">Contact</a></li>
+								<li class="active"><a href="/contact">Contact</a></li>
 
 							</ul>
 						</nav>
@@ -43,23 +43,26 @@
 						<hr>
 						
 
-						<h3>Previously Uploaded Files:</h3>
-						
-						{{#each uploadedFiles}}
-							<li>
-      							<a href="/tool/data/{{name}}"><strong>{{name}}</strong></a>
-    						</li>
-						{{/each}}
-						
+										
 
-						
+						<h3>Email Mahdi Ghodsi:</h3>
+						<form id="downloadForm2" method="post" action="/contact">
+							
+							<label>First Name: </label>
+							<font color='black'><input type="text" name="first_name"></font>
 
-						<h3>Upload your own ConvNet here:</h3>
-						
-						<form id="regForm" method="post" enctype="multipart/form-data"  action="/">
-							<input type="file" name="description_file">
-							<br>
-							<input type="submit" value="Upload" class="btn btn-lg btn-default">
+							
+							 <p><br></p>
+							 <label>Last Name: </label>
+							 <font color='black'><input type="text" name="last"></font></font>
+
+							 <p><br></p>
+							 <label>Email: </label>
+							 <font color='black'><input type="text" name="email"></font></font>
+
+							 <p><br></p>
+							 <input type="submit" value="SEND" class="btn btn-lg btn-default">
+
 						</form>
 						
 
@@ -68,32 +71,6 @@
 						<hr>
 
 
-
-						<h3>Or jump to lunching the tool:</h3>
-						<br>
-						<form id="downloadForm2" method="post" action="/tool">
-							
-							<label>Json File Name: </label>
-							<font color='black'><input type="text" name="data_file_name" value="data.json"></font>
-
-							
-							 <p><br></p>
-							 <label>Link To BackPrp Images: </label>
-							 <font color='black'><input type="text" name="back_link" value="http://35.163.48.45:8888/laskaback/"></font>
-
-							 <p><br></p>
-							 <label>Link To Activation Images: </label>
-							 <font color='black'><input type="text" name="act_link" value="http://35.163.48.45:8888/laskaactivations/"></font>
-
-							 <p><br></p>
-							 <input type="submit" value="LUNCH" class="btn btn-lg btn-default">
-
-						</form>
-						
-
-
-						<p><br></p>
-						<hr>
 
 
 						<nav>

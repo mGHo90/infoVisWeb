@@ -254,6 +254,34 @@ app.get('/tool/data/:fileName', function(req, res){
 
 
 
+
+/**********************************************************************
+*************************Documentation ROUTE***************************
+***********************************************************************/
+// get requests
+app.get('/documentation', function( req, res ) {
+	res.render('documentation');
+});
+/***********************END(Documentation ROUTE)***********************/
+
+
+
+
+
+
+/**********************************************************************
+****************************Contact ROUTE******************************
+***********************************************************************/
+// get requests
+app.get('/contact', function( req, res ) {
+	res.render('contact');
+});
+/**************************END(Contact ROUTE)**************************/
+
+
+
+
+
 //Export the app variable so that its available outside this file
 module.exports = app;
 
