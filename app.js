@@ -199,6 +199,7 @@ app.get('/tool', function( req, res ) {
 app.post('/tool', function( req, res ) {
 
 	var dataFile   = req.body.data_file_name;
+	var outputFile   = req.body.output_file_name;
 	var backPath = req.body.back_link;
 	var actPath = req.body.act_link;
 
@@ -206,7 +207,7 @@ app.post('/tool', function( req, res ) {
 	console.log('hs backPath: '+backPath);
 	console.log('hs actPath: '+actPath);
 
-	res.render('tool', {"dataFileName":dataFile, "backPath":backPath, "actPath":actPath});
+	res.render('tool', {"dataFileName":dataFile, "backPath":backPath, "actPath":actPath, "outputFileName":outputFile});
 });
 
 /*************************END(TOOL ROUTE)*********************************/
