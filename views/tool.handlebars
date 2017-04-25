@@ -1161,50 +1161,57 @@
 
     function fillRect(d, i) {
 
-        var layerNum = i;
-        var Y = yCoord[i];
-        var scale = d3.scaleLinear()
-                .domain([0, myData[0].Children[i].Output])
-                .range([0, nodeWidth]);
-        var goodCount = 0;
-        var badCount = 0;
+var layerNum = i;
+    var Y = yCoord[i];
+    var scale = d3.scaleLinear()
+            .domain([0, myData[0].Children[i].Output])
+            .range([0, nodeWidth]);
+    var goodCount = 0;
+    var badCount = 0;
 
-        if(myData[0].Children[i]){
-            myData[0].Children[i].Children.forEach(
+    if(myData[0].Children[i]){
+        myData[0].Children[i].Children.forEach(
 
-                    function(d) {
-                        if(d.good){
-                            goodCount = goodCount + d.good;
-                        } else if (d.bad){
-                            badCount = badCount + d.bad ;
-                        }
+                function(d) {
+                    if(d.good){
+                        goodCount = goodCount + d.good;
+                    } else if (d.bad){
+                        badCount = badCount + d.bad ;
                     }
-            )
+                }
+        )
 
-        }
+    }
 
-        var goodWidth = Math.ceil(scale(goodCount));
-        var badX = goodWidth;
+    var goodWidth = Math.ceil(scale(goodCount));
+    var badX = goodWidth;
 
-        canvas.append("rect")
-                .attr("class", "stackedBar good")
-                .attr("x", xCoord[layerNum])
-                .attr("y", yCoord[layerNum] + nodeWidth - 20)
-                .attr( "height", 20)
-                .attr( "width", goodWidth)
-                .attr("fill", "blue")
-                .attr("stroke", "transparent");
+    canvas.append("rect")
+            .attr("class", "stackedBar background")
+            .attr("x", xCoord[layerNum])
+            .attr("y", yCoord[layerNum] + nodeWidth - 20)
+            .attr( "height", 20)
+            .attr( "width", nodeWidth)
+            .attr("fill", "white")
+            .attr("stroke", "black");
 
-        canvas.append("rect")
-                .attr("class", "stackedBar bad")
-                .attr("x", xCoord[layerNum] + badX)
-                .attr("y", yCoord[layerNum] + nodeWidth - 20)
-                .attr( "height", 20)
-                .attr( "width", Math.ceil(scale(badCount)))
-                .attr("fill", "red")
-                .attr("stroke", "transparent");
+    canvas.append("rect")
+            .attr("class", "stackedBar good")
+            .attr("x", xCoord[layerNum])
+            .attr("y", yCoord[layerNum] + nodeWidth - 20)
+            .attr( "height", 20)
+            .attr( "width", goodWidth)
+            .attr("fill", "blue")
+            .attr("stroke", "transparent");
 
-
+    canvas.append("rect")
+            .attr("class", "stackedBar bad")
+            .attr("x", xCoord[layerNum] + badX)
+            .attr("y", yCoord[layerNum] + nodeWidth - 20)
+            .attr( "height", 20)
+            .attr( "width", Math.ceil(scale(badCount)))
+            .attr("fill", "red")
+            .attr("stroke", "transparent");
 
 
     }
