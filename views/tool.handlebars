@@ -379,6 +379,9 @@
 
                     switch (d.Name.substring( 0 , 2 )) {
                         case 'co':
+                            //Draw Stack Chart on start
+                            fillRect(d, 1);
+
                             showDetail(d, i);
                             break;
                         case 'pr':
@@ -1189,6 +1192,7 @@ detailForm.append('label')
 
         var layerNum = i;
         var Y = yCoord[i];
+        var filterCount = myData[0].Children[i].Output;
         var scale = d3.scaleLinear()
                 .domain([0, myData[0].Children[i].Output])
                 .range([0, nodeWidth]);
@@ -1219,7 +1223,24 @@ detailForm.append('label')
                 .attr( "height", 20)
                 .attr( "width", nodeWidth)
                 .attr("fill", "gray")
-                .attr("stroke", "black");
+                .attr("stroke", "black")
+                .on("mouseover", function () {
+                    var leftshift = parseInt(d3.select(this).attr("x"));
+                    leftshift = leftshift.toString()
+
+                    var temp = "#bad : " + badCount + '<br>' + "#good : " + goodCount + '<br>' + "#filters : " +filterCount;
+                    div.transition()
+                            .duration(200)
+                            .style("opacity", .9);
+                    div.html(temp)
+                            .style("left", leftshift + "px")
+                            .style("top", d3.select(this).attr("y")  + "px");
+                })
+                .on("mouseout", function(d) {
+                    div.transition()
+                            .duration(500)
+                            .style("opacity", 0);
+                });
 
         canvas.append("rect")
                 .attr("class", "stackedBar good")
@@ -1228,7 +1249,24 @@ detailForm.append('label')
                 .attr( "height", 20)
                 .attr( "width", goodWidth)
                 .attr("fill", "blue")
-                .attr("stroke", "transparent");
+                .attr("stroke", "transparent")
+                .on("mouseover", function () {
+                    var leftshift = parseInt(d3.select(this).attr("x"));
+                    leftshift = leftshift.toString()
+
+                    var temp = "#bad : " + badCount + '<br>' + "#good : " + goodCount + '<br>' + "#filters : " +filterCount;
+                    div.transition()
+                            .duration(200)
+                            .style("opacity", .9);
+                    div.html(temp)
+                            .style("left", leftshift + "px")
+                            .style("top", d3.select(this).attr("y")  + "px");
+                })
+                .on("mouseout", function(d) {
+                    div.transition()
+                            .duration(500)
+                            .style("opacity", 0);
+                });
 
         canvas.append("rect")
                 .attr("class", "stackedBar bad")
@@ -1237,8 +1275,24 @@ detailForm.append('label')
                 .attr( "height", 20)
                 .attr( "width", Math.ceil(scale(badCount)))
                 .attr("fill", "red")
-                .attr("stroke", "transparent");
+                .attr("stroke", "transparent")
+                .on("mouseover", function () {
+                    var leftshift = parseInt(d3.select(this).attr("x"));
+                    leftshift = leftshift.toString()
 
+                    var temp = "#bad : " + badCount + '<br>' + "#good : " + goodCount + '<br>' + "#filters : " +filterCount;
+                    div.transition()
+                            .duration(200)
+                            .style("opacity", .9);
+                    div.html(temp)
+                            .style("left", leftshift + "px")
+                            .style("top", d3.select(this).attr("y")  + "px");
+                })
+                .on("mouseout", function(d) {
+                    div.transition()
+                            .duration(500)
+                            .style("opacity", 0);
+                });
 
     }
 
