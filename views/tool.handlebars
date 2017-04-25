@@ -133,6 +133,7 @@
 
     body {
         background-color: rgb(51, 51, 51);
+        color: #000;
     }
 
 
@@ -368,9 +369,12 @@
                             .attr("class", "layerInfo")
                             .attr("x", 3)
                             .attr("y", 2 * Margin + XYsideBarImage)
-                            .attr("fill", "red")
+                            .attr("fill", "white")
                             .text("Selected Layer: " + d.Name)
                             .style("font-size", "20px")
+
+
+
 
 
                     switch (d.Name.substring( 0 , 2 )) {
@@ -435,6 +439,7 @@
                 .attr("x", sideBarWidth / 2)
                 .attr("y", Margin - 5)
                 .text("Input Image")
+                .attr("fill", "white")
                 .attr("text-anchor", "middle");
 
     });
@@ -468,10 +473,22 @@
 
 
 
+
+legend1 = "<p style='color: white'><span style='background-color: blue'>&nbspSingle Left Click: Annotate as Useful&nbsp&nbsp</span></p>";
+legend2 = "<p style='color: white'><span style='background-color: red'>Double Left Click: Annotate as Useless</span></p>";
+legend3 = "<p style='color: white'><span style='background-color: gray'>Shift + Left Click: Remove Annotation</span></p>";
+legend = legend1 + " " + legend2 + " " + legend3;
+
+detailForm.append('label')
+        .attr("class", "button")
+        .html(legend);
+
         // add two radio buttons for each of the m
         detailForm.append('label')
                 .attr("class", "button")
+                .attr("fill","black")
                 .html('Guided Back Propagation');
+
 
         detailForm.append('input')
                 .attr("class", "button")
@@ -572,7 +589,7 @@
                             .attr("y", 2 * Margin + XYsideBarImage)
                             .text("Filter#: " + d.id)
                             .style("font-size", "18px")
-                            .attr("fill", "navy");
+                            .attr("fill", "white");
 
                     sideBar.selectAll("img")
                             .data([d])
@@ -1144,7 +1161,7 @@
         shoop = shoop.replace(/"/g, "");
         shoop = shoop.replace(/:/g," : " );
 
-        margin  = "<h3 style='color:blue;margin-left:50px;'>";
+        margin  = "<h3 style='color:blue;margin-left:0px;'>";
         shoop = margin + shoop + "</h1>";
 
 
@@ -1161,57 +1178,57 @@
 
     function fillRect(d, i) {
 
-var layerNum = i;
-    var Y = yCoord[i];
-    var scale = d3.scaleLinear()
-            .domain([0, myData[0].Children[i].Output])
-            .range([0, nodeWidth]);
-    var goodCount = 0;
-    var badCount = 0;
+        var layerNum = i;
+        var Y = yCoord[i];
+        var scale = d3.scaleLinear()
+                .domain([0, myData[0].Children[i].Output])
+                .range([0, nodeWidth]);
+        var goodCount = 0;
+        var badCount = 0;
 
-    if(myData[0].Children[i]){
-        myData[0].Children[i].Children.forEach(
+        if(myData[0].Children[i]){
+            myData[0].Children[i].Children.forEach(
 
-                function(d) {
-                    if(d.good){
-                        goodCount = goodCount + d.good;
-                    } else if (d.bad){
-                        badCount = badCount + d.bad ;
+                    function(d) {
+                        if(d.good){
+                            goodCount = goodCount + d.good;
+                        } else if (d.bad){
+                            badCount = badCount + d.bad ;
+                        }
                     }
-                }
-        )
+            )
 
-    }
+        }
 
-    var goodWidth = Math.ceil(scale(goodCount));
-    var badX = goodWidth;
+        var goodWidth = Math.ceil(scale(goodCount));
+        var badX = goodWidth;
 
-    canvas.append("rect")
-            .attr("class", "stackedBar background")
-            .attr("x", xCoord[layerNum])
-            .attr("y", yCoord[layerNum] + nodeWidth - 20)
-            .attr( "height", 20)
-            .attr( "width", nodeWidth)
-            .attr("fill", "white")
-            .attr("stroke", "black");
+        canvas.append("rect")
+                .attr("class", "stackedBar background")
+                .attr("x", xCoord[layerNum])
+                .attr("y", yCoord[layerNum] + nodeWidth - 20)
+                .attr( "height", 20)
+                .attr( "width", nodeWidth)
+                .attr("fill", "gray")
+                .attr("stroke", "black");
 
-    canvas.append("rect")
-            .attr("class", "stackedBar good")
-            .attr("x", xCoord[layerNum])
-            .attr("y", yCoord[layerNum] + nodeWidth - 20)
-            .attr( "height", 20)
-            .attr( "width", goodWidth)
-            .attr("fill", "blue")
-            .attr("stroke", "transparent");
+        canvas.append("rect")
+                .attr("class", "stackedBar good")
+                .attr("x", xCoord[layerNum])
+                .attr("y", yCoord[layerNum] + nodeWidth - 20)
+                .attr( "height", 20)
+                .attr( "width", goodWidth)
+                .attr("fill", "blue")
+                .attr("stroke", "transparent");
 
-    canvas.append("rect")
-            .attr("class", "stackedBar bad")
-            .attr("x", xCoord[layerNum] + badX)
-            .attr("y", yCoord[layerNum] + nodeWidth - 20)
-            .attr( "height", 20)
-            .attr( "width", Math.ceil(scale(badCount)))
-            .attr("fill", "red")
-            .attr("stroke", "transparent");
+        canvas.append("rect")
+                .attr("class", "stackedBar bad")
+                .attr("x", xCoord[layerNum] + badX)
+                .attr("y", yCoord[layerNum] + nodeWidth - 20)
+                .attr( "height", 20)
+                .attr( "width", Math.ceil(scale(badCount)))
+                .attr("fill", "red")
+                .attr("stroke", "transparent");
 
 
     }
