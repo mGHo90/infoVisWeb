@@ -500,6 +500,9 @@ detailForm.append('label')
                     detailForm.selectAll(".parameters")
                             .remove();
 
+                    detailForm.selectAll(".hsButForPar")
+                            .remove();
+
                     d3.selectAll(".filters").attr("visibility", "visible");
                     d3.selectAll(".strokes").attr("visibility", "visible");
 
@@ -519,6 +522,9 @@ detailForm.append('label')
                 .on('click', function () {
                     //Do something
                     detailForm.selectAll(".parameters")
+                            .remove();
+
+                    detailForm.selectAll(".hsButForPar")
                             .remove();
 
                     d3.selectAll(".filters").attr("visibility", "visible");
@@ -960,6 +966,9 @@ detailForm.append('label')
         detailForm.selectAll(".parameters")
                 .remove();
 
+        detailForm.selectAll(".hsButForPar")
+                            .remove();
+
         detail.selectAll(".filters")
                 .remove();
 
@@ -1166,11 +1175,11 @@ detailForm.append('label')
 
 
         detailForm.append('label')
-                .attr("class", "parameters")
+                .attr("class", "hsButForPar")
                 .html('<hr>')
 
         detailForm.append('label')
-                .attr("class", "parameters")
+                .attr("class", "hsButForPar")
                 .html(shoop);
 
 
