@@ -11,7 +11,7 @@ var session = require('express-session');
 var bodyParser = require('body-parser');
 var multer = require('multer');
 var flash = require('express-flash');
-var handlebars = require('express-handlebars');
+var exphbs = require('express-handlebars');
 
 //MONGO STUFF
 var mongo = require('mongodb');
@@ -33,8 +33,8 @@ var app = express();
 ***********************************************************************/
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
-//app.set('view engine', 'jade');
-app.engine('handlebars', handlebars()); app.set('view engine', 'handlebars');
+app.engine('handlebars', exphbs({defaultLayout: 'layout'}));
+app.set('view engine', 'handlebars');
 /**********************END (VIEW ENGINE CONFIGS)************************/
 
 
@@ -151,11 +151,13 @@ var Hs = db.model("Hs", HsSchema);
 
 
 
+
 /**********************************************************************
 ****************************INDEX ROUTE********************************
 ***********************************************************************/
 // get requests
 app.get('/', function( req, res ) {
+	res.locals.isToolPage = false;
 	var path = '/home/hooman/infoVisWeb/transfers';
  
 	fs.readdir(path, function(err, items) {
@@ -191,12 +193,14 @@ app.post('/', upload.single('description_file'), function( req, res ) {
 ***********************************************************************/
 // get requests
 app.get('/tool', function( req, res ) {
+	res.locals.isToolPage = true;
 	res.render('lunch');
 });
 
 
 // post requests
 app.post('/tool', function( req, res ) {
+	res.locals.isToolPage = true;
 
 	var dataFile   = req.body.data_file_name;
 	var outputFile   = req.body.output_file_name;
@@ -261,6 +265,7 @@ app.get('/tool/data/:fileName', function(req, res){
 ***********************************************************************/
 // get requests
 app.get('/documentation', function( req, res ) {
+	res.locals.isToolPage = false;
 	res.render('documentation');
 });
 /***********************END(Documentation ROUTE)***********************/
@@ -275,6 +280,7 @@ app.get('/documentation', function( req, res ) {
 ***********************************************************************/
 // get requests
 app.get('/contact', function( req, res ) {
+	res.locals.isToolPage = false;
 	res.render('contact');
 });
 /**************************END(Contact ROUTE)**************************/

@@ -1,0 +1,62 @@
+{{#if isToolPage}}
+  <script type="text/javascript">console.log('inside if')</script>
+  <!-- ===================================== END HEADER ===================================== -->
+
+    <div class="site-wrapper-inner">
+      <div class="cover-container">
+        <div class="inner cover"> 
+
+          
+          <nav>
+            <ul class="nav masthead-nav">
+              
+              <li><a href="/">Home</a></li>
+              <li><a href="/documentation">Documentation</a></li>
+              <li><a href="/contact">Contact</a></li>
+
+            </ul>
+          </nav>
+
+        </div>
+      </div>
+    </div>
+
+
+  {{{body}}}
+
+  <!-- ===================================== START FOOTER ===================================== -->
+
+    <div class="site-wrapper-inner">
+      <div class="cover-container">
+        <div class="inner cover"> 
+
+            <p><br></p>
+            <hr>
+
+
+            <nav>
+              <ul class="nav masthead-nav">
+                <li><font color='#A4A4A4'>&copy; Copyright Mahdi Ghodsi. 2017 All Rights Reserved</font></li>
+              </ul>
+            </nav>
+            
+              
+          </div>
+
+        </div>
+
+      </div>
+
+
+
+
+
+
+
+{{else}}
+
+
+  {{{body}}}
+
+
+{{/if}}
